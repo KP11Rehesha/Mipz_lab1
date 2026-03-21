@@ -41,11 +41,28 @@ def solve_game(file):
 
 
 def main():
+    import os
+    import sys
 
-    with open("input.txt", "r") as file:
-        cases = int(file.readline().strip())
-        for _ in range(cases):
-            solve_game(file)
+    input_file = "input.txt"
+
+    # Check if input file exists before attempting to read
+    if not os.path.exists(input_file):
+        print(f"Error: Input file '{input_file}' not found.", file=sys.stderr)
+        print("Please ensure the file exists in the current directory.", file=sys.stderr)
+        sys.exit(1)
+
+    try:
+        with open(input_file, "r") as file:
+            cases = int(file.readline().strip())
+            for _ in range(cases):
+                solve_game(file)
+    except FileNotFoundError:
+        print(f"Error: Could not open '{input_file}'.", file=sys.stderr)
+        sys.exit(1)
+    except ValueError as e:
+        print(f"Error: Invalid input format - {e}", file=sys.stderr)
+        sys.exit(1)
 
 
 if __name__ == "__main__":
