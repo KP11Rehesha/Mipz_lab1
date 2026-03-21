@@ -1,3 +1,6 @@
+import os.path
+
+
 def check_bounds(row, col):
     return 0 <= row < 19 and 0 <= col < 19
 
@@ -42,7 +45,14 @@ def solve_game(file):
 
 def main():
 
-    with open("input.txt", "r") as file:
+    filename = "input.txt"
+
+    if not os.path.exists(filename):
+        print(f"File {filename} doesn't exist")
+        print("Please make sure the file is created in the same folder as the script")
+        return
+
+    with open(filename, "r") as file:
         cases = int(file.readline().strip())
         for _ in range(cases):
             solve_game(file)
