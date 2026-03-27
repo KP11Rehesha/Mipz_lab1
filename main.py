@@ -1,22 +1,25 @@
 import os.path
 
+BOARD_SIZE = 19
+WINNING_LENGTH = 5
+EMPTY_CELL = 0
 
 def check_bounds(row, col):
-    return 0 <= row < 19 and 0 <= col < 19
+    return 0 <= row < BOARD_SIZE and 0 <= col < BOARD_SIZE
 
 
 def solve_game(file):
     board = []
-    for _ in range(19):
+    for _ in range(BOARD_SIZE):
         line = list(map(int, file.readline().split()))
         board.append(line)
 
     # Напрямки: Вправо, Вниз, Вниз-Вправо, Вгору-Вправо
     directions = [(0, 1), (1, 0), (1, 1), (-1, 1)]
 
-    for row in range(19):
-        for column in range(19):
-            if board[row][column] == 0:
+    for row in range(BOARD_SIZE):
+        for column in range(BOARD_SIZE):
+            if board[row][column] == EMPTY_CELL:
                 continue
 
             color = board[row][column]
@@ -38,7 +41,7 @@ def solve_game(file):
                     next_row += dx
                     next_col += dy
 
-                if count == 5:
+                if count == WINNING_LENGTH:
                     print(color)
                     print(f"{row + 1} {column + 1}")
                     return
