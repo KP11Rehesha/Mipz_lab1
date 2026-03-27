@@ -10,8 +10,11 @@ def check_bounds(row, col):
 
 def solve_game(file):
     board = []
-    for _ in range(BOARD_SIZE):
+    for row_index in range(BOARD_SIZE):
         line = list(map(int, file.readline().split()))
+        if len(line) < BOARD_SIZE:
+            print(f"Error: Invalid input data. Row {row_index + 1} has less than {BOARD_SIZE} numbers.")
+            return
         board.append(line)
 
     # Напрямки: Вправо, Вниз, Вниз-Вправо, Вгору-Вправо
